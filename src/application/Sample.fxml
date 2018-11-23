@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="331.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <children>
+      <Label fx:id="label1" layoutX="30.0" layoutY="26.0" text="IP Range :" />
+      <Label fx:id="label2" layoutX="252.0" layoutY="26.0" text="To" />
+      <TextField fx:id="ipFrom" layoutX="100.0" layoutY="21.0" prefHeight="27.0" prefWidth="132.0" />
+      <TextField fx:id="ipTo" layoutX="283.0" layoutY="21.0" />
+      <TextField fx:id="hostName" layoutX="100.0" layoutY="64.0" />
+      <Label fx:id="label3" layoutX="61.0" layoutY="69.0" text="Host" />
+      <Button fx:id="btnStart" layoutX="290.0" layoutY="64.0" mnemonicParsing="false" onAction="#StartClick" prefHeight="27.0" prefWidth="83.0" text="start" />
+      <ListView fx:id="add" layoutX="41.0" layoutY="110.0" prefHeight="200.0" prefWidth="400.0" />
+   </children>
+</AnchorPane>
