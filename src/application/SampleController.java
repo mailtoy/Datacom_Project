@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.MissingFormatArgumentException;
@@ -10,6 +9,7 @@ import java.util.MissingFormatArgumentException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,7 +25,7 @@ public class SampleController extends Window {
 	@FXML
 	private TextField ipFrom, ipTo, hostName;
 	@FXML
-	private ListView<String> hostNameCol, ipCol, macCol, pingCol;
+	private ListView<String> hostNameCol, ipCol, pingCol;
 	@FXML
 	private Button startBtn;
 	private Thread sercher;
@@ -45,11 +45,11 @@ public class SampleController extends Window {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void addToListView(ListView<String> listView, String value) {
 		listView.getItems().add(value);
 	}
-	
+
 	public void clearListView(ListView<String> listview) {
 		listview.getItems().clear();
 	}
@@ -65,21 +65,22 @@ public class SampleController extends Window {
 					InetAddress.getByName(ipFrom.getText());
 					InetAddress.getByName(ipTo.getText());
 				} catch (MissingFormatArgumentException fe) {
-//					fe.printStackTrace();
-					System.out.println("hi");
-				}
-				catch (UnknownHostException e) {
+					fe.printStackTrace();
+				} catch (UnknownHostException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		clearListView(hostNameCol);
 		clearListView(ipCol);
-		clearListView(macCol);
 		clearListView(pingCol);
 		sercher.setName("Network searching thread");
 		sercher.start();
-		Find();
+
+		Node source = (Node) event.getSource();
+		Stage stage = (Stage) source.getScene().getWindow();
+
+		Find(stage);
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {
@@ -87,7 +88,7 @@ public class SampleController extends Window {
 		}
 	}
 
-	public void Find() {
+	public void Find(Stage stage) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error alert");
 		alert.setHeaderText(null);
@@ -99,12 +100,13 @@ public class SampleController extends Window {
 		int toInt = Integer.parseInt(to);
 		int result = 0;
 		totalScanned = 0;
-		if (ipFrom.getText().trim().isEmpty() || ipTo.getText().trim().isEmpty() || ipFrom.getText() == null || ipTo.getText() == null ) {        
-	        alert.setContentText("IP Address(es) cannot be empty.");
-	        alert.showAndWait();
+		if (ipFrom.getText().trim().isEmpty() || ipTo.getText().trim().isEmpty() || ipFrom.getText() == null
+				|| ipTo.getText() == null) {
+			alert.setContentText("IP Address(es) cannot be empty.");
+			alert.showAndWait();
 		} else if (fromInt > toInt || fromInt < 0 || fromInt > 255 || toInt < 0 || toInt > 255) {
 			alert.setContentText("Wrong input!");
-	        alert.showAndWait();
+			alert.showAndWait();
 		} else {
 			for (int i = Integer.parseInt(from); i <= Integer.parseInt(to); i++) {
 				long currentTime = System.currentTimeMillis();
@@ -113,21 +115,14 @@ public class SampleController extends Window {
 					InetAddress ip = InetAddress.getByName(address + i);
 					if (ip.isReachable(100)) { // Try for one tenth of a second
 						currentTime = System.currentTimeMillis() - currentTime;
-						NetworkInterface network = NetworkInterface.getByInetAddress(ip);
-						byte[] mac = network.getHardwareAddress();
-						StringBuilder stringBuilder = new StringBuilder();
-						for (int j = 0; j < mac.length; j++) {
-							stringBuilder.append(String.format("%02X%s", mac[j], (j < mac.length - 1) ? ":" : ""));		
-						}
 						addToListView(hostNameCol, ip.getHostName());
 						addToListView(ipCol, ip.getHostAddress());
-						addToListView(macCol, stringBuilder.toString());
-						addToListView(pingCol, (currentTime/1000.0) + "ms");
+						addToListView(pingCol, (currentTime / 1000.0) + "ms");
 						result++;
 					}
 				} catch (UnknownHostException e) {
 					e.printStackTrace();
-				} catch (SocketException e){
+				} catch (SocketException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -135,42 +130,50 @@ public class SampleController extends Window {
 				totalScanned++;
 			}
 			elapsedTime = System.currentTimeMillis() - startTime;
-			nextScene(result);
+			nextScene(result,stage);
 		}
 	}
 
-	public void nextScene(int result) {
+	public void nextScene(int result, Stage oldStage) {
 		try {
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Report.fxml"));
 			Stage stage = new Stage();
-			stage.setWidth(350.0);
+			stage.setWidth(400.0);
 			stage.setScene(new Scene((Parent) loader.load()));
 			stage.show();
 			stage.setResizable(false);
+			stage.setTitle("IP Scanner");
 			ReportController report = loader.getController();
 			setAddress(report);
 			setHost(report, result);
 			setDuration(report);
 			setTotalScan(report);
-		} catch (IOException e) {}
+			sentStage(report, oldStage);
+		} catch (IOException e) {
+		}
 	}
-	
+
 	public void setAddress(ReportController report) {
 		report.setfromAddress(ipFrom.getText());
 		report.setToAddress(ipTo.getText());
 	}
-	
+
 	public void setHost(ReportController report, int hosts) {
 		report.setHostAlive(hosts + "");
 	}
 	
+	public void sentStage(ReportController report,Stage oldStage){
+		report.setOldStage(oldStage);
+	}
+
 	public void setDuration(ReportController report) {
-		double duration = elapsedTime/1000.0;
+		double duration = elapsedTime / 1000.0;
 		report.setTime(duration + "");
 	}
-	
+
 	public void setTotalScan(ReportController report) {
 		report.setTotal(totalScanned + "");
 	}
-	
+
 }

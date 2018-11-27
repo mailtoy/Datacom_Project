@@ -15,6 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
 			Parent root = (Parent) FXMLLoader.load(getClass().getResource("Scan.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setResizable(false);

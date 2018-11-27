@@ -8,48 +8,42 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
-      <Label layoutX="95.0" layoutY="25.0" text="IP Range :" />
-      <Label layoutX="312.0" layoutY="26.0" text="To" />
-      <TextField fx:id="ipFrom" layoutX="160.0" layoutY="21.0" prefHeight="27.0" prefWidth="132.0" promptText="From IPAddress" />
-      <TextField fx:id="ipTo" layoutX="343.0" layoutY="22.0" promptText="to IPAddress" />
-      <TextField fx:id="hostName" layoutX="160.0" layoutY="64.0" prefHeight="25.0" prefWidth="132.0" />
-      <Label layoutX="121.0" layoutY="69.0" text="Host" />
-      <Button fx:id="startBtn" layoutX="343.0" layoutY="64.0" mnemonicParsing="false" onAction="#startClick" opacity="0.6" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: Black;" text="START" textFill="#66bb00">
+      <Label layoutX="95.0" layoutY="49.0" text="IP Range :" />
+      <Label layoutX="312.0" layoutY="50.0" text="To" />
+      <TextField fx:id="ipFrom" layoutX="160.0" layoutY="45.0" prefHeight="27.0" prefWidth="132.0" promptText="From IPAddress" />
+      <TextField fx:id="ipTo" layoutX="345.0" layoutY="45.0" promptText="to IPAddress" />
+      <TextField fx:id="hostName" layoutX="160.0" layoutY="91.0" prefHeight="25.0" prefWidth="132.0" />
+      <Label layoutX="121.0" layoutY="96.0" text="Host" />
+      <Button fx:id="startBtn" layoutX="345.0" layoutY="91.0" mnemonicParsing="false" onAction="#startClick" opacity="0.6" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: Black;" text="START" textFill="#66bb00">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <AnchorPane layoutX="31.0" layoutY="103.0" prefHeight="56.0" prefWidth="543.0" style="-fx-background-radius: 10, 0, 0 ,0; -fx-background-color: #66BB00;">
+      <AnchorPane layoutX="29.0" layoutY="143.0" prefHeight="56.0" prefWidth="543.0" style="-fx-background-radius: 10, 0, 0 ,0; -fx-background-color: #66BB00;">
          <children>
-            <Label layoutX="89.0" layoutY="10.0" text="Name">
+            <Label layoutX="78.0" layoutY="10.0" text="Name">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="279.0" layoutY="10.0" text="IP">
+            <Label layoutX="297.0" layoutY="10.0" text="IP">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="494.0" layoutY="10.0" text="Ping">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="369.0" layoutY="10.0" text="MAC Address">
+            <Label layoutX="462.0" layoutY="10.0" text="Ping">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <HBox layoutX="31.0" layoutY="138.0" prefHeight="238.0" prefWidth="542.0">
+      <HBox layoutX="29.0" layoutY="178.0" prefHeight="238.0" prefWidth="543.0">
          <children>
             <ListView fx:id="hostNameCol" prefHeight="238.0" prefWidth="223.0" />
-            <ListView fx:id="ipCol" prefHeight="238.0" prefWidth="124.0" />
-            <ListView fx:id="macCol" prefHeight="238.0" prefWidth="126.0" />
-            <ListView fx:id="pingCol" prefHeight="238.0" prefWidth="78.0" />
+            <ListView fx:id="ipCol" prefHeight="238.0" prefWidth="220.0" />
+            <ListView fx:id="pingCol" prefHeight="238.0" prefWidth="163.0" />
          </children>
       </HBox>
    </children>
