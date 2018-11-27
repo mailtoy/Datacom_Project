@@ -1,5 +1,8 @@
 package application;
 	
+import java.io.IOException;
+import java.net.InetAddress;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -16,7 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = (Parent) FXMLLoader.load(getClass().getResource("Sample.fxml"));
+			Parent root = (Parent) FXMLLoader.load(getClass().getResource("Scan.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -25,6 +28,15 @@ public class Main extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void ping (String entryIpAddress){
+	    try{    
+	         String command ="ping  "+entryIpAddress;
+	         Process process = Runtime.getRuntime().exec(command);
+	         process.getOutputStream();
+	         System.out.println(process.toString());
+	    }catch(Exception e){}
 	}
 
 	/**

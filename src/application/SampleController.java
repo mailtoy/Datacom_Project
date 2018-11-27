@@ -1,16 +1,20 @@
 package application;
 
-import java.awt.Container;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.MissingFormatArgumentException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class SampleController extends Window {
@@ -33,8 +37,8 @@ public class SampleController extends Window {
 	private Label label3;
 	@FXML
 	private Button btnStart;
-
-	private Container components = null;
+	private Thread sercher;
+	private long startTime, elapsedTime;
 
 	@FXML
 	public void initialize() {
@@ -43,6 +47,7 @@ public class SampleController extends Window {
 
 	void LoadMe() {
 		try {
+			ipFrom.setText(InetAddress.getLocalHost().getHostAddress());
 			hostName.setText(InetAddress.getLocalHost().getHostName());
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -52,22 +57,10 @@ public class SampleController extends Window {
 	public void Add(String m) {
 		add.getItems().add(m);
 	}
-
-//	private void UseClick(ActionEvent event)
-//   {
-//     //When pressing the use use button
-//   
-//     InetAddress ip = InetAddress.getByName( InetAddress.getLocalHost().getHostName());
-//     
-//     ipFrom = ip.getAddress();
-//     ipTo = ip.AddressList[0].ToString();
-//
-//   }
-
-	Thread sercher;
-
+	
 	@FXML
 	public void StartClick(ActionEvent event) {
+		startTime = System.currentTimeMillis();
 		sercher = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -81,7 +74,7 @@ public class SampleController extends Window {
 					}
 				} catch (MissingFormatArgumentException fe) {
 
-				}				
+				}
 			}
 		});
 		add.getItems().clear();
@@ -96,30 +89,59 @@ public class SampleController extends Window {
 		}
 	}
 
-	void Find() {
+	public void Find() {
 		Add("-- >>> >> >>> Found station <<< << <<< -- ");
-		int lastF = ipFrom.getText().lastIndexOf(".");
-		int lastT = ipTo.getText().lastIndexOf(".");
-		String frm = ipFrom.getText().substring(lastF + 1);
-		String tto = ipTo.getText().substring(lastT + 1);
-		
+		int lastFrom = ipFrom.getText().lastIndexOf(".");
+		int lastTo = ipTo.getText().lastIndexOf(".");
+		String from = ipFrom.getText().substring(lastFrom + 1);
+		String to = ipTo.getText().substring(lastTo + 1);
+
 		int result = 0;
-
-		for (int i = Integer.parseInt(frm); i <= Integer.parseInt(tto); i++) {
+		for (int i = Integer.parseInt(from); i <= Integer.parseInt(to); i++) {
+			long currentTime = System.currentTimeMillis();
 			try {
-				String address = ipTo.getText().substring(0, lastT + 1);
-				System.out.println(ipTo.getText().substring(0, lastT + 1) + i);
-				InetAddress he = InetAddress.getByName(address + i);
-
-		        if (he.isReachable(100)) { // Try for one tenth of a second
-		            System.out.printf("Address %s is reachable\n", he);
-		            Add(he.getHostName());
-					result += 1;	
-		        }
-			}
-			catch (Exception e) {
-			}
+				String address = ipTo.getText().substring(0, lastTo + 1);
+//				System.out.println(ipTo.getText().substring(0, lastT + 1) + i);
+				InetAddress ip = InetAddress.getByName(address + i);
+				if (ip.isReachable(100)) { // Try for one tenth of a second
+					currentTime = System.currentTimeMillis() - currentTime;
+//					System.out.printf("Address %s is reachable\n", he);
+					Add(ip.getHostName() + " Ping:" + currentTime/1000.0);
+					result += 1;
+				}
+			} catch (Exception e) {}
 		}
-		 Add("All done search retrieved "+ result +" working stations.");
+		Add("All done search retrieved " + result + " working stations.");
+		elapsedTime = System.currentTimeMillis() - startTime;
+		nextScene(result);
+	}
+
+	public void nextScene(int result) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Report.fxml"));
+			Stage stage = new Stage();
+			stage.setScene(new Scene((Parent) loader.load()));
+			stage.show();
+//			Stage ScanStage = (Stage) btnStart.getScene().getWindow();
+			ReportController report = loader.getController();
+			setAddress(report);
+			setHost(report, result);
+			setDuration(report);
+			// ScanStage.close();
+		} catch (IOException e) {}
+	}
+	
+	public void setAddress(ReportController report) {
+		report.setfromAddress(ipFrom.getText());
+		report.setToAddress(ipTo.getText());
+	}
+	
+	public void setHost(ReportController report, int hosts) {
+		report.setHostAlive(hosts + "");
+	}
+	
+	public void setDuration(ReportController report) {
+		double duration = elapsedTime/1000.0;
+		report.setTime(duration + "");
 	}
 }
