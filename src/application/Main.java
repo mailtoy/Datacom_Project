@@ -21,19 +21,10 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			primaryStage.setTitle("Project");
+			primaryStage.setTitle("IP Scanner");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void ping (String entryIpAddress){
-	    try{    
-	         String command ="ping  "+entryIpAddress;
-	         Process process = Runtime.getRuntime().exec(command);
-	         process.getOutputStream();
-	         System.out.println(process.toString());
-	    }catch(Exception e){}
 	}
 
 	/**

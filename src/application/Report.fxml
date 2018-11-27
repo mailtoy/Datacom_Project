@@ -1,45 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="297.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReportController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReportController">
    <children>
-      <Label fx:id="totaltime" layoutX="22.0" layoutY="26.0" prefHeight="32.0" prefWidth="81.0" text="Total time:">
+      <AnchorPane layoutX="26.0" layoutY="199.0" prefHeight="130.0" prefWidth="298.0" style="-fx-background-radius: 15px; -fx-background-color: #66BB00;">
+         <children>
+            <Label fx:id="totaltime" layoutX="21.0" layoutY="15.0" prefHeight="32.0" prefWidth="81.0" text="Total time:" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="sec" layoutX="167.0" layoutY="22.0" text="sec" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="ip" layoutX="22.0" layoutY="45.0" text="IP Range" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="timeLabel" layoutX="101.0" layoutY="19.0" prefHeight="25.0" prefWidth="54.0" text="time" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="fromLabel" layoutX="85.0" layoutY="42.0" prefHeight="25.0" prefWidth="87.0" text="from" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="between" layoutX="173.0" layoutY="45.0" prefHeight="17.0" prefWidth="2.0" text="-" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="toLabel" layoutX="186.0" layoutY="42.0" prefHeight="25.0" prefWidth="90.0" text="to" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="alive" layoutX="21.0" layoutY="88.0" text="Hosts alive: " textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="hostAliveLabel" layoutX="93.0" layoutY="88.0" text="hosts" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="20.0" layoutY="67.0" text="Total Scan:" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalLabel" layoutX="96.0" layoutY="67.0" text="total" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="110.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../image/checked.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="162.0" text="Scan Completed!">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="sec" layoutX="205.0" layoutY="32.0" text="sec">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="ip" layoutX="22.0" layoutY="58.0" text="IP Range">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="timeLabel" layoutX="125.0" layoutY="32.0" prefHeight="20.0" prefWidth="74.0" text="time">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="fromLabel" layoutX="22.0" layoutY="88.0" prefHeight="20.0" prefWidth="125.0" text="from">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="between" layoutX="149.0" layoutY="91.0" text="-" />
-      <Label fx:id="toLabel" layoutX="163.0" layoutY="89.0" prefHeight="20.0" prefWidth="132.0" text="to">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="alive" layoutX="23.0" layoutY="122.0" text="Hosts alive: ">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
-      <Label fx:id="hostAliveLabel" layoutX="127.0" layoutY="122.0" text="0">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
    </children>
 </AnchorPane>
