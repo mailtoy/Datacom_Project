@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -42,6 +41,5 @@
          <font>
             <Font size="16.0" />
          </font></Label>
-      <ProgressIndicator fx:id="p1" layoutX="66.0" layoutY="30.0" prefHeight="122.0" prefWidth="163.0" progress="0.0" />
    </children>
 </AnchorPane>

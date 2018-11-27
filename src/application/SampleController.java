@@ -122,6 +122,7 @@ public class SampleController extends Window {
 			Stage stage = new Stage();
 			stage.setScene(new Scene((Parent) loader.load()));
 			stage.show();
+			stage.setResizable(false);
 //			Stage ScanStage = (Stage) btnStart.getScene().getWindow();
 			ReportController report = loader.getController();
 			setAddress(report);
