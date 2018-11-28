@@ -7,7 +7,7 @@
 ## Demo
 [Download here](https://github.com/mailtoy/Datacom_Project/blob/master/IP-Scanner.jar)
 ## How it works?
-> Our IP Scanner allows the users to scan IP addresses in any network’s range to see how many machines using in the same network including pings in that time.
+Our IP Scanner allows the users to scan IP addresses in any network’s range to see how many machines using in the same network including pings in that time.
 ## Tools
 - **Java** using in [Java.net](https://docs.oracle.com/javase/8/docs/api/java/net/package-frame.html) library
 - **JavaFx** together with the SceneBuilder
