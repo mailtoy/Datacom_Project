@@ -70,7 +70,7 @@
       </AnchorPane>
       <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="135.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../image/checked.png" />
+            <Image url="@../image/checked.png" />
          </image>
       </ImageView>
       <Label layoutX="127.0" layoutY="164.0" text="Scan Completed!">
@@ -78,6 +78,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btnClose" layoutX="348.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnClose" prefHeight="25.0" prefWidth="22.0" text="x" />
+      <Button fx:id="btnClose" layoutX="348.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnClose" prefHeight="25.0" prefWidth="22.0" style="-fx-background-color: transparent;" text="x" />
    </children>
 </AnchorPane>
